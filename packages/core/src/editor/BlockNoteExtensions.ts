@@ -53,6 +53,7 @@ export const getBlockNoteExtensions = <
     provider: any;
     renderCursor?: (user: any) => HTMLElement;
   };
+  disabled: string[]
 }) => {
   const ret: Extensions = [
     extensions.ClipboardTextSerializer,
@@ -192,6 +193,6 @@ export const getBlockNoteExtensions = <
     // disable history extension when collaboration is enabled as Yjs takes care of undo / redo
     ret.push(History);
   }
-
-  return ret;
+  
+  return ret.filter(ex => !disabled.includes(ex.name))
 };
